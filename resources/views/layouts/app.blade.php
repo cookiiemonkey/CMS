@@ -9,6 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -103,5 +104,8 @@
             @endauth
         </main>
     </div>
+
+    @yield('scripts')
+
 </body>
 </html>
