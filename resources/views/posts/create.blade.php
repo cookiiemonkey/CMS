@@ -8,8 +8,11 @@
         </div>
         <div class="card-body">
 
-            <form action="{{ route('posts.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ isset($post) ? route('posts.update', $post->id) : route('posts.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @if ($post)
+                    @method('PUT')
+                @endif
                 <div class="from-group">
                     <input type="text" class="form-control" name="title" placeholder="Title" value="{{ isset($post) ? $post->title : ''}}">
                 </div>
@@ -17,18 +20,25 @@
                     <textarea name="description" id="description" cols="5" rows="5" class="form-control">{{ isset($post) ? $post->description : 'Description'}}</textarea>
                 </div>
                 <div class="from-group mt-3">
-                    <input id="content" type="hidden" name="content">
-                    <trix-editor input="content" {{ isset($post) ? 'value="'.$post->content.'"' : 'placeholder=Content'}} ></trix-editor>
+                    <input id="content" type="hidden" name="content" value= "{{ isset($post) ? $post->content : ''}}">
+                    <trix-editor input="content" placeholder="{{ isset($post) ? '' : 'Content'}}"></trix-editor>
                 </div>
                 <div class="from-group mt-3">
                     <input type="text" class="form-control" name="published_at" placeholder="{{ isset($post) ? $post->published_at : 'Published_At'}}" id="published_at">
                 </div>
+
+                @if (isset($post))
+                    <div class="form-group mt-3">
+                        <img src="{{ asset('/storage/'.$post->image) }}" alt="" style="width: 100%">
+                    </div>
+                @endif
+
                 <div class="from-group mt-3">
                     <label for="image">Add Image:</label>
                     <input type="file"class="d-block" name="image" id="image">
                 </div>
                 
-                <button type="submit" class="btn btn-success mt-4">Create Post</button>
+                <button type="submit" class="btn btn-success mt-4">{{ isset($post) ? 'Update Post' : 'Create Post'}}</button>
             </form>
         </div>
     </div>
