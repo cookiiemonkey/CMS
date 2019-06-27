@@ -8,6 +8,8 @@
         </div>
         <div class="card-body">
 
+            @include('partials.error')
+
             <form action="{{ isset($post) ? route('posts.update', $post->id) : route('posts.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if ($post)
@@ -42,6 +44,19 @@
                             </option>
                         @endforeach
                     </select>
+                </div>
+
+                <div class="from-group mt-3">
+                    @if ($tags->count() > 0)
+                        <label for="tag">Tags:</label>
+                        <select class="form-control" name="tags[]" id="tags" multiple>
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->id }}" @if (isset($post)) @if($post->hasTag($tag->id)) selected @endif @endif> 
+                                    {{ $tag->name }} 
+                                </option>
+                            @endforeach
+                        </select>
+                    @endif
                 </div>
 
                 <div class="from-group mt-3">

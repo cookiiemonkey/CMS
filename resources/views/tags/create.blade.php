@@ -3,23 +3,23 @@
 @section('content')
     <div class="card card-default">
         <div class="card-header">
-            {{ isset($category) ? 'Edit Category' : 'Create category'}}
+            {{ isset($tag) ? 'Edit Tag' : 'Create Tag'}}
         </div>
 
         <div class="card-body">
             @include('partials.error')
 
-            <form action="{{ isset($category) ? route('categories.update', $category) : route('categories.store')}}" method="POST">
-                @if (isset($category))
+            <form action="{{ isset($tag) ? route('tags.update', $tag) : route('tags.store')}}" method="POST">
+                @if (isset($tag))
                     @method('PUT')
                 @endif
                 @csrf
                 <div class="form-group">
-                    <input type="text" class="form-control" name="name" placeholder="name" value="{{ isset($category) ? $category->name : ''}}">
+                    <input type="text" class="form-control" name="name" placeholder="name" value="{{ isset($tag) ? $tag->name : ''}}">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-success">
-                        {{ isset($category) ? 'Update Categroy' : 'Add Category'}}
+                        {{ isset($tag) ? 'Update Categroy' : 'Add Tag'}}
                     </button>
                 </div>
             </form>
