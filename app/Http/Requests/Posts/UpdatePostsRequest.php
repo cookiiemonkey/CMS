@@ -24,9 +24,10 @@ class UpdatePostsRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => "required|unique:posts",
-            'description' => "required",
-            'content' => "required"
+            'title' => 'required|unique:posts',
+            'description' => 'required',
+            'content' => 'required',
+            'category' => 'required'
         ];
     }
 }

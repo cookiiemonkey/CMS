@@ -34,12 +34,27 @@
                 @endif
 
                 <div class="from-group mt-3">
-                    <label for="image">Add Image:</label>
-                    <input type="file"class="d-block" name="image" id="image">
+                    <label for="category">Category:</label>
+                    <select class="form-control" name="category" id="category">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" @if (isset($post)) @if($category->id == $post->category_id) selected @endif @endif> 
+                                {{ $category->name }} 
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
-                
-                <button type="submit" class="btn btn-success mt-4">{{ isset($post) ? 'Update Post' : 'Create Post'}}</button>
-            </form>
+
+                <div class="from-group mt-3">
+                    <label for="image">Add Image:</label>
+                    <input type="file" class="d-block " name="image" id="image">
+                </div>
+
+                <div class="from-group mt-4">
+                    <button type="submit" class="btn btn-success">{{ isset($post) ? 'Update Post' : 'Create Post'}}</button>
+                </div>
+
+
+                </form>
         </div>
     </div>
 

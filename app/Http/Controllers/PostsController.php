@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Posts\CreatePostsRequest;
 use App\Http\Requests\Posts\UpdatePostsRequest;
 use App\Post;
+use App\Category;
 
 class PostsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('verifyCategoriesCount')->only('create', 'store');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +30,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create')->with('post', NULL);
+        return view('posts.create')->with('post', NULL)->with('categories', Category::all());
     }
 
     /**
@@ -45,7 +49,8 @@ class PostsController extends Controller
             'description' => $request->description,
             'content' => $request->content,
             'image' => $image,
-            'published_at' => $request->published_at
+            'published_at' => $request->published_at,
+            'category_id' => $request->category
         ]);
 
         // flash session 
@@ -73,7 +78,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post', $post);
+        return view('posts.create')->with('post', $post)->with('categories', Category::all());
     }
 
     /**

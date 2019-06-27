@@ -11,6 +11,7 @@
                     <thead>
                         <th>Image</th>
                         <th>Title</th>
+                        <th>Category</th>
                         <th></th>
                         <th></th>
                     </thead>
@@ -23,7 +24,11 @@
                                 <td>
                                     {{ $post->title }}
                                 </td>
-                                
+                                <td>
+                                    <a href="{{ route('categories.edit', $post->category->id) }}">
+                                        {{ $post->category->name }}
+                                    </a>
+                                </td>
                                 @if (!$post->trashed())
                                     <td>
                                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>

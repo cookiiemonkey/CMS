@@ -9,12 +9,16 @@
                 <table class="table">
                     <thead>
                         <th>Name</th>
+                        <th>Posts Count</th>
                         <th></th>
                     </thead>
                     <tbody>
                         @foreach ($categories as $category)
                             <tr>
                                 <td>{{$category->name}}</td>
+                                <td>
+                                    {{ $category->posts->count() }}
+                                </td>
                                 <td>
                                     <button class="btn btn-danger float-right" onclick="handleDelete({{ $category->id }})">Delete</button>
                                     <a href="{{ route('categories.edit', $category->id)}}" style="color:white" class="btn btn-info float-right mr-3">Edit</a>
