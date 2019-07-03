@@ -31,7 +31,7 @@
                     <div class="col-md-8 col-xl-9">
                         <div class="row gap-y">
 
-                            @foreach ($posts as $post)
+                            @forelse ($posts as $post)
                                 <div class="col-md-6">
                                     <div class="card border hover-shadow-6 mb-6 d-block">
                                         <a href="{{route('blog.show', $post->id)}}"><img class="card-img-top" src="{{ asset('/storage/'.$post->image) }}" alt="Card image cap"></a>
@@ -41,14 +41,18 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty 
+                                <p class="text-center">
+                                    No results found for query <strong>{{ request()->query('search') }}</strong>
+                                </p>
+                            @endforelse
 
 
                             
 
                         </div>
 
-                        {{ $posts->links() }}
+                        {{ $posts->appends(['search' => request()->query('search')])->links() }}
 
                     </div>
 
@@ -58,8 +62,8 @@
                         <div class="sidebar px-4 py-md-0">
 
                             <h6 class="sidebar-title">Search</h6>
-                            <form class="input-group" target="#" method="GET">
-                                <input type="text" class="form-control" name="s" placeholder="Search">
+                            <form class="input-group" action="{{ route('welcome') }}" method="GET">
+                                <input type="text" class="form-control" name="search" placeholder="Search" value="{{ request()->query('search') }}">
                                 <div class="input-group-addon">
                                     <span class="input-group-text"><i class="ti-search"></i></span>
                                 </div>
