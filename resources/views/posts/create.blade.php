@@ -83,7 +83,8 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         flatpickr('#published_at', {
-            enableTime: true
+            enableTime: true,
+            enableSeconds: true
         })
 
         $(document).ready(function() {
